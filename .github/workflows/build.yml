@@ -1,7 +1,7 @@
 name: Build Godot Executable
 
 on:
-  workflow_dispatch: # 수동 실행(Run workflow 버튼)만 허용
+  workflow_dispatch: # 수동 실행만 허용
 
 jobs:
   export_windows:
@@ -13,17 +13,56 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
+      # export_presets.cfg 생성 (Godot 3.x 지원 포맷)
+      - name: Ensure Export Presets Exist
+        run: |
+          cat << 'EOF' > export_presets.cfg
+          [preset.0]
+
+          name="Windows Desktop"
+          platform="Windows Desktop"
+          runnable=true
+          dedicated_server=false
+          custom_features=""
+          export_filter="all_resources"
+          include_filter=""
+          exclude_filter=""
+          export_path="build/DSR_Sim.exe"
+          script_export_mode=1
+          script_encryption_key=""
+
+          [preset.0.options]
+
+          custom_template/release=""
+          custom_template/debug=""
+          binary_format/embed_pck=true
+          texture_format/bptc=false
+          texture_format/s3tc=true
+          texture_format/etc=false
+          texture_format/etc2=false
+          texture_format/no_bptc_fallbacks=true
+          codesign/enable=false
+          application/icon=""
+          application/file_version=""
+          application/product_version=""
+          application/company_name=""
+          application/product_name=""
+          application/file_description=""
+          application/copyright=""
+          application/trademarks=""
+          EOF
+
       - name: Godot Export (Windows)
         uses: firebelley/godot-export@v6.0.0
         with:
-          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.2.2/Godot_v4.2.2-stable_linux.x86_64.zip
-          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.2.2/Godot_v4.2.2-stable_export_templates.tpz
-          relative_preset_path: ./
-          preset_name: Windows Desktop
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.5.2/Godot_v3.5.2-stable_linux_headful.64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.5.2/Godot_v3.5.2-stable_export_templates.tpz
+          use_godot_3: true
+          relative_project_path: ./
           archive_output: true
 
       - name: Upload Windows Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: DSR_Simulator_Windows
-          path: build/Windows Desktop.zip
+          path: build/*.zip
