@@ -19,12 +19,12 @@ static var positions_db := {
 	},
 	"doom_lineup": {
 		"doom1": Vector2(4.5, -10),
-		"doom2": Vector2(4.5, -3.5),
-		"doom3": Vector2(4.5, 3.5),
+		"doom2": Vector2(4.5, 3.5),    # <- 기존 doom3의 좌표로 변경 (3.5)
+		"doom3": Vector2(4.5, -3.5),    # <- 기존 doom2의 좌표로 변경 (-3.5)
 		"doom4": Vector2(4.5, 10),
 		"free1": Vector2(-2.5, -10),
-		"free2": Vector2(-2.5, -3.5),
-		"free3": Vector2(-2.5, 3.5),
+		"free2": Vector2(-2.5, 3.5),    # <- 기존 free3의 좌표로 변경 (3.5)
+		"free3": Vector2(-2.5, -3.5),   # <- 기존 free2의 좌표로 변경 (-3.5)
 		"free4": Vector2(-2.5, 10)
 	},
 	"impact_1": {
