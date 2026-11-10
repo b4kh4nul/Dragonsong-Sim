@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # export_presets.cfg 생성 (Godot 3.x 지원 포맷)
+      # export_presets.cfg 파일 자동 생성
       - name: Ensure Export Presets Exist
         run: |
           cat << 'EOF' > export_presets.cfg
@@ -55,8 +55,8 @@ jobs:
       - name: Godot Export (Windows)
         uses: firebelley/godot-export@v6.0.0
         with:
-          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.5.2/Godot_v3.5.2-stable_x11_64.zip
-          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.5.2/Godot_v3.5.2-stable_export_templates.tpz
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_x11.64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_export_templates.tpz
           use_godot_3: true
           relative_project_path: ./
           archive_output: true
