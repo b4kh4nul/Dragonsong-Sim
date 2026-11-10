@@ -1,0 +1,29 @@
+name: Build Godot Executable
+
+on:
+  workflow_dispatch: # 수동 실행(Run workflow 버튼)만 허용
+
+jobs:
+  export_windows:
+    name: Export Windows EXE
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Godot Export (Windows)
+        uses: firebelley/godot-export@v6.0.0
+        with:
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.2.2/Godot_v4.2.2-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.2.2/Godot_v4.2.2-stable_export_templates.tpz
+          relative_preset_path: ./
+          preset_name: Windows Desktop
+          archive_output: true
+
+      - name: Upload Windows Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DSR_Simulator_Windows
+          path: build/Windows Desktop.zip
